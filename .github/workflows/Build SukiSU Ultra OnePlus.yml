@@ -828,6 +828,7 @@ jobs:
 
           if [ "${{ github.event.inputs.LANDLOCK }}" = "true" ]; then
             echo CONFIG_SECURITY_LANDLOCK=y >> "$CONFIG_FILE"
+          fi
 
           # Serial
           if [ "${{ github.event.inputs.SERIAL }}" = "true" ]; then
