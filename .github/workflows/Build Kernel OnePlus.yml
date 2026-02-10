@@ -6,7 +6,7 @@ on:
         type: choice
         description: "配置文件"
         required: true
-        default: oneplus_ace2_pro_b
+        default: oneplus_ace5_pro_b
         options:
           - oneplus_10r_v
           - oneplus_nord_3_v
@@ -59,7 +59,7 @@ on:
         type: choice
         description: "管理器调用方向"
         required: true
-        default: MIUIX
+        default: MD3
         options:
           - MIUIX
           - MIUIX_SPOOF
@@ -78,7 +78,7 @@ on:
         type: choice
         description: "内核模块实现方式"
         required: true
-        default: KPM
+        default: NoN
         options:
           - KPM
           - KPN
