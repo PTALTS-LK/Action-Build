@@ -178,7 +178,7 @@ on:
         description: "是否停用此次Ccache？"
         required: true
         default: false
-       PID_IPC_NS:
+      PID_IPC_NS:
         type: boolean
         description: "[LK]是否启用内核PID & IPC命名空间"
         required: true
