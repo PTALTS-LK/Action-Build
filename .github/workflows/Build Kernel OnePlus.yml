@@ -6,7 +6,7 @@ on:
         type: choice
         description: "配置文件"
         required: true
-        default: oneplus_ace2_pro_b
+        default: oneplus_ace5_pro_b
         options:
           - oneplus_nord_n30_se_5g_v
           - oneplus_10r_v
@@ -82,7 +82,7 @@ on:
         type: choice
         description: "内核模块实现方式"
         required: true
-        default: KPM
+        default: NoN
         options:
           - KPM
           - KPN
@@ -101,12 +101,12 @@ on:
         type: string
         description: "自定义构建时间(输入F使用当前UTC时间)"
         required: false
-        default: "Fri Dec 12 11:37:03 UTC 2025"
+        default: "F"
       KSU_META:
         type: string
         description: "分支名(必填)/自定义版本标识(留空不修改)/回退分支提交哈希版本(留空不修改)"
         required: false
-        default: "main/Numbersf/"
+        default: "main/LK-Build/"
       ZRAM:
         type: string
         description: "ZRAM(0关闭1开启)/算法名/大小"
@@ -130,7 +130,7 @@ on:
         type: boolean
         description: "是否启用关键分区写入保护模块(BBG)？"
         required: true
-        default: true
+        default: false
       NETFILTER:
         type: boolean
         description: "是否启用网络功能拓展(NETFILTER)？"
@@ -176,6 +176,21 @@ on:
         description: "是否停用此次Ccache？"
         required: true
         default: false
+       PID_IPC_NS:
+        type: boolean
+        description: "[LK]是否启用内核PID & IPC命名空间"
+        required: true
+        default: true
+      SERIAL:
+        type: boolean
+        description: "[LK]是否启用内核USB Serial支持"
+        required: true
+        default: true
+      LANDLOCK:
+        type: boolean
+        description: "[LK]是否启用内核LandLock"
+        required: true
+        default: true
 
 jobs:
   build:
@@ -334,6 +349,12 @@ jobs:
           echo "Selected CCM: ${{ github.event.inputs.CCM }}"
           echo "Selected SUSFS_DEV: ${{ github.event.inputs.SUSFS_DEV }}"
           echo "Selected FAST_BUILD: ${{ github.event.inputs.FAST_BUILD }}"
+          echo "Selected SCHED: ${{ github.event.inputs.SCHED }}"
+
+          echo "Selected PID & IPC Namespaces: ${{ github.event.inputs.PID_IPC_NS }}"
+          echo "Selected SERIAL: ${{ github.event.inputs.SERIAL }}"
+          echo "Selected LandLock: ${{ github.event.inputs.LANDLOCK }}"
+
           echo "Selected SCHED_HMBIRD: ${{ github.event.inputs.SCHED_HMBIRD }}"
           echo "Selected UNICODE_BYPASS: ${{ github.event.inputs.UNICODE_BYPASS }}"
           echo "Selected DROID_SPACES: ${{ github.event.inputs.DROID_SPACES }}"
@@ -961,6 +982,80 @@ jobs:
           KERNEL_VERSION="${{ env.KERNEL_VERSION }}"
           MANAGER_BRANCH="${{ steps.manager.outputs.manager_branch }}"
 
+          # PID & IPC Namspaces
+          
+          if [ "${{ github.event.inputs.PID_IPC_NS }}" = "true" ]; then
+            echo CONFIG_PID_NS=y >> "$CONFIG_FILE"
+            echo CONFIG_IPC_NS=y >> "$CONFIG_FILE"
+            
+          fi
+
+          # LandLock
+
+          if [ "${{ github.event.inputs.LANDLOCK }}" = "true" ]; then
+            echo CONFIG_SECURITY_LANDLOCK=y >> "$CONFIG_FILE"
+          fi
+
+          # Serial
+          if [ "${{ github.event.inputs.SERIAL }}" = "true" ]; then
+            echo CONFIG_USB_SERIAL=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_CONSOLE=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_GENERIC=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_SIMPLE=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_AIRCABLE=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_ARK3116=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_BELKIN=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_CH341=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_WHITEHEAT=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_DIGI_ACCELEPORT=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_CP210X=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_CYPRESS_M8=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_EMPEG=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_FTDI_SIO=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_VISOR=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_IPAQ=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_IR=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_EDGEPORT=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_EDGEPORT_TI=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_F81232=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_F8153X=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_GARMIN=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_IPW=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_IUU=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_KEYSPAN_PDA=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_KEYSPAN=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_KLSI=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_KOBIL_SCT=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_MCT_U232=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_METRO=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_MOS7720=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_MOS7840=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_MXUPORT=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_NAVMAN=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_PL2303=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_OTI6858=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_QCAUX=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_QUALCOMM=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_SPCP8X5=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_SAFE=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_SAFE_PADDED=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_SIERRAWIRELESS=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_SYMBOL=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_TI=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_CYBERJACK=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_WWAN=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_OPTION=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_OMNINET=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_OPTICON=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_XSENS_MT=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_WISHBONE=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_SSU100=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_QT2=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_UPD78F0730=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_XR=y >> "$CONFIG_FILE"
+            echo CONFIG_USB_SERIAL_DEBUG=y>> "$CONFIG_FILE"
+          fi
+          
           # ReSukiSU配置
           echo "CONFIG_KSU=y" >> "$CONFIG_FILE"
           echo "CONFIG_KSU_MULTI_MANAGER_SUPPORT=y" >> "$CONFIG_FILE"
