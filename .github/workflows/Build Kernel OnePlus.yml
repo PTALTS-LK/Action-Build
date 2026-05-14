@@ -181,11 +181,6 @@ on:
         description: "是否停用此次Ccache？"
         required: true
         default: false
-      PID_IPC_NS:
-        type: boolean
-        description: "[LK]是否启用内核PID & IPC命名空间"
-        required: true
-        default: true
       SERIAL:
         type: boolean
         description: "[LK]是否启用内核USB Serial支持"
@@ -1155,14 +1150,6 @@ jobs:
           CONFIG_FILE=./arch/arm64/configs/gki_defconfig
           KERNEL_VERSION="${{ env.KERNEL_VERSION }}"
           MANAGER_BRANCH="${{ steps.manager.outputs.manager_branch }}"
-
-          # PID & IPC Namspaces
-          
-          if [ "${{ github.event.inputs.PID_IPC_NS }}" = "true" ]; then
-            echo CONFIG_PID_NS=y >> "$CONFIG_FILE"
-            echo CONFIG_IPC_NS=y >> "$CONFIG_FILE"
-            
-          fi
 
           # LandLock
 
