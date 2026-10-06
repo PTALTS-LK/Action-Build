@@ -1,6 +1,6 @@
 **`Enlish`** | [简体中文](README.md)
  
-[![Workflow Status](https://img.shields.io/github/actions/workflow/status/Numbersf/Action-Build/Build%20Kernel%20OnePlus.yml?branch=ReSukiSU&label=remote%20build&logo=github-actions&style=flat-square)](https://github.com/Numbersf/Action-Build/actions/workflows/Build%20Kernel%20OnePlus.yml?query=branch%3AReSukiSU) ![Downloads](https://img.shields.io/github/downloads/Numbersf/Action-Build/total)
+[![Workflow Status](https://img.shields.io/github/actions/workflow/status/Numbersf/Action-Build/Build%20Kernel%20OnePlus.yml?branch=BakaSU&label=remote%20build&logo=github-actions&style=flat-square)](https://github.com/Numbersf/Action-Build/actions/workflows/Build%20Kernel%20OnePlus.yml?query=branch%3ABakaSU) ![Downloads](https://img.shields.io/github/downloads/Numbersf/Action-Build/total)
  
 [![Kernel Manifest](https://img.shields.io/badge/Kernel%20Manifest-EB0029?logo=oneplus&logoColor=white&style=flat-square)](https://github.com/OnePlusOSS/kernel_manifest) [![Dynamic Kernel Manifest](https://img.shields.io/badge/Dynamic%20Kernel%20Manifest-EB0029?logo=oneplus&logoColor=white&style=flat-square)](https://github.com/Numbersf/kernel_manifest) [![Kernel Manifest Appendix](https://img.shields.io/badge/Kernel%20Manifest%20Appendix-EB0029?logo=oneplus&logoColor=white&style=flat-square)](https://github.com/Numbersf/Kernel_Manifest_Appendix) [![Fengchi Kernel](https://img.shields.io/badge/Fengchi%20Kernel-EB0029?logo=github&logoColor=white&style=flat-square)](https://github.com/Numbersf/SCHED_PATCH)
  
@@ -16,8 +16,8 @@ Prohibit the promotion of forked repositories with **no modifications**; see [LI
 <details>
 <summary><strong>Click to view how to fork the project</strong></summary>
 <p>
-  <img src="https://github.com/Numbersf/Action-Build/blob/ReSukiSU/pic/start.gif" width="500"/>
-  <img src="https://github.com/Numbersf/Action-Build/blob/ReSukiSU/pic/start(2).png" width="500"/>
+  <img src="https://github.com/Numbersf/Action-Build/blob/BakaSU/pic/start.gif" width="500"/>
+  <img src="https://github.com/Numbersf/Action-Build/blob/BakaSU/pic/start(2).png" width="500"/>
 </p>
 <summary>Please note, if you want to use other branch manager projects, make sure to disable 'Copy the SukiSU-Ultra branch only' when forking.</summary>
 </details>
@@ -25,7 +25,7 @@ Prohibit the promotion of forked repositories with **no modifications**; see [LI
 <details>
 <summary><strong>Click to view how to sync the forked project to the latest</strong></summary>
 <p>
-  <img src="https://github.com/Numbersf/Action-Build/blob/ReSukiSU/pic/syncfork.png" width="500"/>
+  <img src="https://github.com/Numbersf/Action-Build/blob/BakaSU/pic/syncfork.png" width="500"/>
 </p>
 <summary>Please sync promptly! Some updates may cause older versions to fail! If it still fails after syncing, delete and fork again! If the issue persists, then submit an issue for feedback.</summary>
 </details>
@@ -74,15 +74,13 @@ Prohibit the promotion of forked repositories with **no modifications**; see [LI
  
 ------
 > [!CAUTION]
-> Do not use volume down to install modules during root-retaining updates, use volume up to skip! Generally, installation is no longer necessary, just use the ReSukiSU Add-on Module  
+> Do not use volume down to install modules during root-retaining updates, use volume up to skip! Generally, installation is no longer necessary, just use the BakaSU Add-on Module  
 >
 > If you have enabled the ``ZRAM`` algorithm, make sure to install the ``ZRAM`` module **before rebooting** after flashing with ``Anykernel3``. You may need to adjust some parameters manually.The 5.10 kernel is not supported ``ZRAM`` , as the ``zram.ko`` module path could not be found.However, the generated ``Anykernel3`` is still usable  
 >
 >``MTK`` devices do not support disabling fast build  
 >
 >``OnePlus Ace5`` does not support enabling Fengchi. Older models cannot use it even if the kernel includes it — do not force it  
->
->``CAll Build Start UP`` is an **extremely dangerous** new workflow.**It has no new features and everything remains default and non-customizable**.This workflow is **strictly prohibited** for regular users and should use ``Build All OnePlus Kernels`` instead!  
 >
  
 ------
@@ -135,7 +133,7 @@ set_hide_config "CONFIG_IP6_NF_NAT=y"
  
 - Support setting branches、custom version identifiers、fallback hash.  
 ```
-Set Branch: Divided into manager-layer and built-in-layer. Please modify according to the channel name in the ReSukiSU repository. Do not modify unless you are a developer. Do not leave it empty or remove it.
+Set Branch: Divided into manager-layer and built-in-layer. Please modify according to the channel name in the BakaSU repository. Do not modify unless you are a developer. Do not leave it empty or remove it.
 Custom Version Tag:
 Replace the original commit hash with your custom content, and move the commit hash to the end. This can be modified freely, but keep it reasonably short.
 The commit hash referred to here is the built-in-layer.
@@ -149,8 +147,6 @@ Regardless of whether the custom version identifier and fallback hash are enable
 - Fully automated retrieval of kernel information and build information.  
  
 - Allow modifying `SUBLEVEL`,Used to fix the issue where the device fails to boot after a system update changes the `SUBLEVEL` but the kernel source has not been updated.  
- 
-- Allows running multiple workflows in batches of `9` each time.Ordinary users are prohibited from using.  
  
 - Remove file-map and build method selection; let the main workflow decide automatically [@Bouteillepleine](https://github.com/Bouteillepleine)  
  
@@ -184,9 +180,9 @@ When there is a kernel-level update or a significant slowdown caused by changes 
  
 - Removed potential version codes from the suffix of `Anykernel3.zip` config file, replaced with exact `Android` version numbers `XX.X.(X)`.
 ```
-AnyKernel3_ReSukiSU_34895_OnePlusAce2Pro_Android16.0.0(5.15.180)_KPM_BBG_ILH_DS_REKER.zip
-AnyKernel3_ReSukiSU_34895_OnePlus11_Android14.1.0(5.15.123)_KPM_BBG_ILH_DS_REKER.zip
-AnyKernel3_ReSukiSU_34895_OnePlus15(AOSP)_Android16.0.0(6.12.23)_KPM_BBG_ILH_DS_REKER.zip
+AnyKernel3_BakaSU_34895_OnePlusAce2Pro_Android16.0.0(5.15.180)_KPM_BBG_ILH_DS_REKER.zip
+AnyKernel3_BakaSU_34895_OnePlus11_Android14.1.0(5.15.123)_KPM_BBG_ILH_DS_REKER.zip
+AnyKernel3_BakaSU_34895_OnePlus15(AOSP)_Android16.0.0(6.12.23)_KPM_BBG_ILH_DS_REKER.zip
 ```  
  
 - Added support for the `LZ4K、LZ4KD` compression algorithm in the `zram` module.   [@ShirkNeko](https://github.com/ShirkNeko)  
